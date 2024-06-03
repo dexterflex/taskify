@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import backgroundMusic from '../assets/audios/background-music-instrumental-207886.mp3'; // Update with your actual path
 
-import logo from '../assets/images/Figma-basics.svg'
+import logo from '../assets/images/Logo maker project.jpeg'
 
 const Header = () => {
     const audioRef = useRef(null);
@@ -21,12 +21,12 @@ const Header = () => {
     return (
         <div>
             {/* nav  */}
-            <nav className='py-3 px-14 bg-slate-100 sm:flex items-center justify-between shadow '>
+            <nav className='py-2 md:px-14 px-5 bg-white sm:flex items-center justify-between shadow '>
                 {/* logo  */}
                 <img
                     src={logo}
                     alt="not found"
-                    className='h-10 mb-10 mx-auto sm:mx-0 sm:mb-0'
+                    className='h-12 mx-auto sm:mx-0 sm:mb-0 mb-5'
                 />
                 {/* night-day mode  */}
                 {/* options  */}

@@ -9,13 +9,12 @@ const Task = () => {
     useGSAP(() => {
         gsap.from('.from-left', {
             scrollTrigger: {
-                trigger: '.form',
-                start: 'center 80%',
+                trigger: '.from-left',
+                start: 'top 100%',
                 toggleActions: "play none none none",
             },
-            scale: 0,
             opacity: 0,
-            x: '-50%',
+            y: '150px',
             duration: .8,
             ease: 'Power2.inOut',
         })
@@ -23,14 +22,12 @@ const Task = () => {
     useGSAP(() => {
         gsap.from('.from-right', {
             scrollTrigger: {
-                trigger: '.form',
-                start: 'top 80%',
-                end: 'top top',
+                trigger: '.from-right',
+                start: 'top 100%',
                 toggleActions: "play none none none",
             },
-            scale: 0,
             opacity: 0,
-            x: '50%',
+            y: '150px',
             duration: .8,
             ease: 'Power2.inOut',
         })
@@ -90,7 +87,7 @@ const Task = () => {
     }
     function Form() {
         return (
-            <form onSubmit={(event) => handleAddTask(event)} className='form shadow-2xl shadow-black p-5 h-96 rounded'>
+            <form onSubmit={(event) => handleAddTask(event)} className=' p-5 h-96 rounded'>
                 <h2 className='mb-8 text-3xl'>Add Task</h2>
                 <input type="text" name="task" id="task" placeholder='Task-Title' onChange={(e) => handleCurrTask(e.target.value, null, null, null)} required className='bg-slate-200 rounded block w-full mb-4 py-2 px-4 outline-none' />
                 <textarea name="task-desc" id="" cols="30" rows="10" placeholder='Task-Description' onChange={(e) => handleCurrTask(null, e.target.value, null, null)} required className='bg-slate-200 rounded block w-full h-20 mb-4 py-2 px-4 outline-none resize-none'></textarea>
@@ -107,26 +104,26 @@ const Task = () => {
     }
 
     return (
-        <div className=' bg-white md:p-14 px-5 py-9 flex flex-col md:flex-row gap-10'>
-            <div className='from-left md:w-1/2'>
+        <div className=' bg-white md:p-14 px-5 py-9 flex flex-col md:flex-row gap-11'>
+            <div className='from-left md:w-1/2  shadow-2xl shadow-black'>
                 <Form />
             </div>
             {/* all tasks  */}
-            <div className='from-right md:w-1/2 shadow-2xl shadow-black p-5 rounded flex flex-col gap-5 h-96 overflow-scroll'>
+            <div className='from-right md:w-1/2 shadow-2xl bg-cyan-700 shadow-black p-5 rounded flex flex-col gap-5 h-96 overflow-scroll '>
                 {
                     tasks.map(task => {
                         return (
-                            <div className='bg-slate-200 rounded p-3' key={task.id}>
+                            <div className='bg-slate-200 rounded p-3  shadow-inner shadow-black' key={task.id}>
                                 <div className='flex justify-between items-center'>
                                     <h2 className='font-bold text-xl text-black'>{task.title}</h2>
                                     <div className='flex gap-2'>
-                                        <a href="" className='text-yellow-700'><i className="fa-regular fa-pen-to-square"></i></a>
+                                        <a href="" className='text-yellow-500'><i className="fa-regular fa-pen-to-square"></i></a>
                                         <a href="" className='text-red-600'><i className="fa-solid fa-trash"></i></a>
                                     </div>
                                 </div>
                                 <small className='text-gray-500'>Created on : {task.created}</small>
                                 <p className='mt-4 text-blue-500'>{task.desc}</p>
-                                <div className='text-gray-500 text-end'>
+                                <div className='text-gray-500 text-end pt-4 px-2'>
                                     <small>{task.start} - {task.end}</small>
                                 </div>
                             </div >

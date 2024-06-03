@@ -2,7 +2,7 @@ import React from 'react'
 import heroImage from '../assets/images/photo-1484480974693-6ca0a78fb36b.avif'
 import heroImageSecondary from '../assets/images/premium_photo-1661963783275-dff88a0296f6.avif'
 import hello from '../assets/images/waving_hand_24dp_FILL0_wght400_GRAD0_opsz24.png'
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -17,8 +17,8 @@ const Hero = () => {
         gsap.from('.slide-left', {
             scrollTrigger: {
                 trigger: '.slide-left',
+                start: 'center 100%',
                 toggleActions: "play none none none",
-
             },
             scale: 2,
             opacity: 0,
@@ -32,13 +32,15 @@ const Hero = () => {
         gsap.from('.slide-right', {
             scrollTrigger: {
                 trigger: '.slide-right',
-                start: 'center 80%',
+                start: 'top 100%',
                 toggleActions: "play none none none",
             },
-            x: '100%',
+
+            scale: 0,
             opacity: 0,
             duration: .8,
             ease: 'power2.inOut',
+
 
         })
     })
@@ -47,7 +49,7 @@ const Hero = () => {
 
     return (
         <div className="md:p-14 px-5 py-9 bg-gray-800">
-            <div className="slide-left text-white flex flex-col-reverse md:flex-row items-center justify-center md:py-24">
+            <div className="slide-left text-white flex flex-col-reverse md:flex-row items-center justify-center py-24">
                 <div className="w-full md:w-1/2 text-left md:pr-10 ">
                     <h1 className="text-4xl md:text-5xl font-bold mb-4"><img src={hello} alt="not found" className='mb-4 w-14'></img>
                         <ReactTyped
@@ -66,7 +68,7 @@ const Hero = () => {
                 </div>
             </div>
 
-            <div className="slide-right text-white flex flex-col md:flex-row  items-center justify-center md:py-24">
+            <div className="slide-right text-white flex flex-col md:flex-row  items-center justify-center py-24">
                 <div className="w-full md:w-1/2 mb-6 md:mb-0">
                     <img src={heroImage} alt="not found" className="image w-full h-auto rounded shadow-2xl shadow-white" />
                 </div>
