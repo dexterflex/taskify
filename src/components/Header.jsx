@@ -1,20 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react';
+import backgroundMusic from '../assets/audios/background-music-instrumental-207886.mp3'; // Update with your actual path
+
 import logo from '../assets/images/Figma-basics.svg'
 
 const Header = () => {
-    let [lightMode, setLightMode] = useState(true);
+    const audioRef = useRef(null);
+    const [isPlaying, setIsPlaying] = useState(false);
 
-    function handleLightMode() {
-        setLightMode(!lightMode);
-        if (lightMode) {
-            document.body.style.backgroundColor = "rgb(24 3 27)";
-            document.body.style.color = "#fff";
+    // Function to toggle play/pause
+    const toggleAudio = () => {
+        if (isPlaying) {
+            audioRef.current.pause();
+            setIsPlaying(false);
+        } else {
+            audioRef.current.play();
+            setIsPlaying(true);
         }
-        else {
-            document.body.style.backgroundColor = "#fff";
-            document.body.style.color = "#000";
-        }
-    }
+    };
 
     return (
         <div>
@@ -30,9 +32,12 @@ const Header = () => {
                 {/* options  */}
                 <div className="options flex items-center justify-center gap-5">
                     {/* night-day mode  */}
-                    <span
-                        className='text-white bg-purple-700 py-1 px-2 rounded  cursor-pointer' >
-                        <i className="fa-solid fa-sun"></i>
+                    <span onClick={toggleAudio}
+                        className='text-white bg-purple-700  rounded  cursor-pointer h-8 w-8 flex items-center justify-center' >
+                        <audio ref={audioRef} src={backgroundMusic} loop />
+                        {isPlaying
+                            ? <i class="fa-solid fa-pause"></i>
+                            : <i class="fa-solid fa-play"></i>}
                     </span>
                     {/* search-bar  */}
                     <form action="" className='flex border border-solid border-purple-700 py-1 px-3 bg-white'>
