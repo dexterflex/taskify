@@ -35,7 +35,6 @@ const Hero = () => {
                 trigger: '.slide-right',
                 start: '170px center',
                 toggleActions: "play none none none",
-                markers: true
             },
             x: '100%',
             opacity: 0,
