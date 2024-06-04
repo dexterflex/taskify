@@ -181,7 +181,7 @@ const Task = () => {
             <div className="from-right md:w-1/2 shadow-2xl bg-cyan-700 shadow-black p-5 rounded flex flex-col gap-5 h-96 overflow-scroll ">
                 {allTasks.length == 0 ? (
                     <div className="bg-slate-200 rounded p-3  shadow-inner shadow-black">
-                        You are free of allTasks.
+                        You are free of Tasks.
                         <br />
                         So, Add little fun in your task. <br /> There is nothing like fun,
                         is there?
