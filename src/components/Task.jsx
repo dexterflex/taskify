@@ -11,8 +11,8 @@ const Task = () => {
         gsap.from(".from-left", {
             scrollTrigger: {
                 trigger: ".from-left",
-                start: "center 100%",
-                toggleActions: "play none none none",
+                start: "top 100%",
+                toggleActions: "play none none none ",
             },
             opacity: 0,
             y: "100px",
@@ -24,7 +24,7 @@ const Task = () => {
         gsap.from(".from-right", {
             scrollTrigger: {
                 trigger: ".from-right",
-                start: "center 100%",
+                start: "top 100%",
                 toggleActions: "play none none none",
             },
             opacity: 0,
@@ -57,8 +57,10 @@ const Task = () => {
     // handing form submission 
     function handleSubmit(event) {
         event.preventDefault();
+        let cpyCurrentTask = { ...currentTask };
+        cpyCurrentTask.created = `${new Date()}`
+
         if (currentTask.index !== "") {
-            let cpyCurrentTask = { ...currentTask };
             let index = cpyCurrentTask.index;
             cpyCurrentTask.index = "";
 
@@ -67,7 +69,7 @@ const Task = () => {
             setAllTasks(cpyAllTasks);
         }
         else {
-            setAllTasks([...allTasks, currentTask]);
+            setAllTasks([...allTasks, cpyCurrentTask]);
         }
         resetCurrentTask()
     }
@@ -178,7 +180,7 @@ const Task = () => {
             </div>
 
             {/* all allTasks  */}
-            <div className="from-right md:w-1/2 shadow-2xl bg-cyan-700 shadow-black p-5 rounded flex flex-col gap-5 h-96 overflow-scroll ">
+            <div className="from-right md:w-1/2 shadow-2xl bg-slate-800 shadow-black p-5 rounded flex flex-col gap-5 h-96 overflow-scroll ">
                 {allTasks.length == 0 ? (
                     <div className="bg-slate-200 rounded p-3  shadow-inner shadow-black">
                         You are free of Tasks.

@@ -19,10 +19,10 @@ const Hero = () => {
                 start: "center 100%",
                 toggleActions: "play none none none",
             },
-            scale: 2,
+            x: '-100%',
             opacity: 0,
-            delay: 0.3,
-            duration: 0.8,
+            delay: .2,
+            duration: 1.5,
             ease: "power2.inOut",
         });
     });
@@ -31,13 +31,14 @@ const Hero = () => {
         gsap.from(".zoom-in", {
             scrollTrigger: {
                 trigger: ".zoom-in",
-                start: "top 100%",
+                start: "100px 100%",
+                end: 'center top',
                 toggleActions: "play none none none",
             },
-
-            scale: 0,
+            x: '100%',
             opacity: 0,
-            duration: .8,
+            delay: .1,
+            duration: 1.5,
             ease: "power2.inOut",
         });
     });
