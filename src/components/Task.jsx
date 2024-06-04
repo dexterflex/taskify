@@ -1,139 +1,225 @@
-import React, { useState } from 'react'
-import gsap from 'gsap'
-import { useGSAP } from '@gsap/react'
-import ScrollTrigger from 'gsap/ScrollTrigger'
+import React, { useState } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import ScrollTrigger from "gsap/ScrollTrigger";
 
+// Task function
 const Task = () => {
     gsap.registerPlugin(ScrollTrigger);
-
+    // animation
     useGSAP(() => {
-        gsap.from('.from-left', {
+        gsap.from(".from-left", {
             scrollTrigger: {
-                trigger: '.from-left',
-                start: 'top 100%',
+                trigger: ".from-left",
+                start: "center 100%",
                 toggleActions: "play none none none",
             },
             opacity: 0,
-            y: '150px',
-            duration: .8,
-            ease: 'Power2.inOut',
-        })
-    })
+            y: "150px",
+            duration: 1,
+            ease: "Power2.inOut",
+        });
+    });
     useGSAP(() => {
-        gsap.from('.from-right', {
+        gsap.from(".from-right", {
             scrollTrigger: {
-                trigger: '.from-right',
-                start: 'top 100%',
+                trigger: ".from-right",
+                start: "center 100%",
                 toggleActions: "play none none none",
             },
             opacity: 0,
-            y: '150px',
-            duration: .8,
-            ease: 'Power2.inOut',
-        })
-    })
+            y: "150px",
+            duration: 1,
+            ease: "Power2.inOut",
+        });
+    });
 
-    let [tasks, addTask] = useState([{
-        "id": 1,
-        "title": "Set up the initial state",
-        "desc": "Initialize the state for each form input.",
-        "start": "03:45 PM",
-        "end": "03:45 PM",
-        "created": "Mon Jun 03 2024 04:51:53 GMT+0530"
-    }]);
-
-    // temporary task 
-    let tempTask = {
-        "id": "",
+    // hooks
+    const [allTasks, setAllTasks] = useState([]);
+    const [currentTask, setCurrentTask] = useState({
+        "index": "",
         "title": "",
-        "desc": "",
+        "description": "",
         "start": "",
         "end": "",
-        "created": ""
+    });
+
+    // handlers functions
+
+    // handles the changes in form fields 
+    function handleChange(event) {
+        let { name, value } = event.target;
+        let cpyCurrentTask = { ...currentTask };
+        cpyCurrentTask[name] = value;
+        setCurrentTask(cpyCurrentTask);
     }
-    function handleCurrTask(title, desc, start, end) {
-        tempTask.id = tasks.length + 1;
-        if (title) {
-            tempTask.title = title;
+
+    // handing form submission 
+    function handleSubmit(event) {
+        event.preventDefault();
+        if (currentTask.index !== "") {
+            let cpyCurrentTask = { ...currentTask };
+            let index = cpyCurrentTask.index;
+            cpyCurrentTask.index = "";
+
+            let cpyAllTasks = [...allTasks];
+            cpyAllTasks[index] = cpyCurrentTask;
+            setAllTasks(cpyAllTasks);
         }
-        if (desc) {
-            tempTask.desc = desc;
+        else {
+            setAllTasks([...allTasks, currentTask]);
         }
-        if (start) {
-            tempTask.start = start;
+        resetCurrentTask()
+    }
+
+    //  reset current task i.e make the form fields empty
+    function resetCurrentTask() {
+        setCurrentTask({
+            "index": "",
+            "title": "",
+            "description": "",
+            "start": "",
+            "end": "",
+        })
+    }
+
+    // edit the tasks 
+    function edit(task, index) {
+        let cpyCurrentTask = { ...task };
+        cpyCurrentTask.index = index;
+        setCurrentTask(cpyCurrentTask);
+    }
+
+    // removes element from all tasks 
+    function remove(index) {
+        let sure = confirm("Are you sure");
+        if (sure) {
+            let cpyAllTasks = allTasks.splice(1, 1)
+            setAllTasks(cpyAllTasks)
         }
-        if (end) {
-            tempTask.end = end;
+        else {
+            console.log("something wrong")
         }
     }
-    function handleAddTask(event) {
-        event.preventDefault()
-        let date = new Date();
-        let created = date.toLocaleDateString() + date.toLocaleTimeString()
-        tempTask.created = created;
-        if (tempTask.id && tempTask.title && tempTask.desc && tempTask.start && tempTask.end) {
-            let currTask = [...tasks]
-            currTask.push(tempTask);
-            addTask(currTask);
-            tempTask = {
-                "id": "",
-                "title": "",
-                "desc": "",
-                "start": "",
-                "end": "",
-                "created": ""
-            }
-        }
-    }
-    function Form() {
-        return (
-            <form onSubmit={(event) => handleAddTask(event)} className=' p-5 h-96 rounded'>
-                <h2 className='mb-8 text-3xl'>Add Task</h2>
-                <input type="text" name="task" id="task" placeholder='Task-Title' onChange={(e) => handleCurrTask(e.target.value, null, null, null)} required className='bg-slate-200 rounded block w-full mb-4 py-2 px-4 outline-none' />
-                <textarea name="task-desc" id="" cols="30" rows="10" placeholder='Task-Description' onChange={(e) => handleCurrTask(null, e.target.value, null, null)} required className='bg-slate-200 rounded block w-full h-20 mb-4 py-2 px-4 outline-none resize-none'></textarea>
-                <div className='flex gap-3 mb-8'>
-                    <input type="time" name="start-time" id="start-time" onChange={(e) => handleCurrTask(null, null, e.target.value, null)} required className='bg-slate-400 py-1 px-4 rounded' />
-                    <input type="time" name="end-time" id="end-time" onChange={(e) => handleCurrTask(null, null, null, e.target.value)} required className='bg-slate-400 py-1 px-4 rounded' />
-                </div>
-                <div className='flex justify-end gap-2'>
-                    <button type='reset' className='rounded text-black py-2 w-28 bg-white border-2 border-black transition-all duration-300 ease-in-out hover:bg-black hover:text-white'>Reset</button>
-                    <button type='submit' className='rounded text-white py-2 w-28 bg-black border-2 border-black transition-all duration-300 ease-in-out hover:bg-white hover:text-black'>Add</button>
-                </div>
-            </form>
-        )
+
+    function convertTo12HourFormat(time24) {
+        // Split the input string to get hours and minutes
+        let [hours, minutes] = time24.split(':');
+
+        // Convert hours to an integer
+        hours = parseInt(hours);
+
+        // Determine AM or PM suffix
+        let period = hours >= 12 ? 'PM' : 'AM';
+
+        // Convert hours to 12-hour format
+        hours = hours % 12 || 12;  // The `|| 12` handles the case when `hours` is 0
+
+        // Return the formatted time
+        return `${hours}:${minutes} ${period}`;
     }
 
     return (
-        <div className=' bg-white md:p-14 px-5 py-9 flex flex-col md:flex-row gap-11'>
-            <div className='from-left md:w-1/2  shadow-2xl shadow-black'>
-                <Form />
+        <div className=" bg-white md:p-14 px-5 py-9 flex flex-col md:flex-row gap-11 ">
+            {/* form  */}
+            <div className="from-left  p-5 h-96 rounded md:w-1/2  shadow-2xl shadow-black">
+                <form onSubmit={handleSubmit}>
+                    <h2 className="mb-8 text-3xl">{currentTask.index === "" ? "Add Task" : "Update Task"}</h2>
+                    <input
+                        type="text"
+                        name="title"
+                        value={currentTask.title}
+                        onChange={handleChange}
+                        placeholder="Task-Title"
+                        className="bg-slate-200 rounded block w-full mb-4 py-2 px-4 outline-none"
+                        required
+                    />
+                    <textarea
+                        name="description"
+                        value={currentTask.description}
+                        onChange={handleChange}
+                        placeholder="Task-Description"
+                        className="bg-slate-200 rounded block w-full h-20 mb-4 py-2 px-4 outline-none resize-none"
+                        required
+                    ></textarea>
+                    <div className="flex gap-3 mb-8">
+                        <input
+                            type="time"
+                            name="start"
+                            value={currentTask.start}
+                            onChange={handleChange}
+                            className="bg-slate-400 py-1 px-4 rounded"
+                            required
+                        />
+                        <input
+                            type="time"
+                            name="end"
+                            value={currentTask.end}
+                            onChange={handleChange}
+                            className="bg-slate-400 py-1 px-4 rounded"
+                            required
+                        />
+                    </div>
+                    <div className="flex justify-end gap-2">
+                        <button
+                            type="reset" onClick={resetCurrentTask}
+                            className="rounded text-black py-2 w-28 bg-white border-2 border-black transition-all duration-300 ease-in-out hover:bg-black hover:text-white"
+                        >
+                            Reset
+                        </button>
+                        <button
+                            type="submit"
+                            className="rounded text-white py-2 w-28 bg-black border-2 border-black transition-all duration-300 ease-in-out hover:bg-white hover:text-black"
+                        >
+                            Add
+                        </button>
+                    </div>
+                </form>
             </div>
-            {/* all tasks  */}
-            <div className='from-right md:w-1/2 shadow-2xl bg-cyan-700 shadow-black p-5 rounded flex flex-col gap-5 h-96 overflow-scroll '>
-                {
-                    tasks.map(task => {
+
+            {/* all allTasks  */}
+            <div className="from-right md:w-1/2 shadow-2xl bg-cyan-700 shadow-black p-5 rounded flex flex-col gap-5 h-96 overflow-scroll ">
+                {allTasks.length == 0 ? (
+                    <div className="bg-slate-200 rounded p-3  shadow-inner shadow-black">
+                        You are free of allTasks.
+                        <br />
+                        So, Add little fun in your task. <br /> There is nothing like fun,
+                        is there?
+                    </div>
+                ) : (
+                    allTasks.map((task, index) => {
                         return (
-                            <div className='bg-slate-200 rounded p-3  shadow-inner shadow-black' key={task.id}>
-                                <div className='flex justify-between items-center'>
-                                    <h2 className='font-bold text-xl text-black'>{task.title}</h2>
-                                    <div className='flex gap-2'>
-                                        <a href="" className='text-yellow-500'><i className="fa-regular fa-pen-to-square"></i></a>
-                                        <a href="" className='text-red-600'><i className="fa-solid fa-trash"></i></a>
+                            <div
+                                className="bg-slate-200 rounded p-3  shadow-inner shadow-black"
+                                key={index}
+                            >
+                                <div className="flex justify-between items-center">
+                                    <h2 className="font-bold text-xl text-black">{task.title}</h2>
+                                    <div className="flex gap-2">
+                                        <a onClick={() => edit(task, index)} className="text-yellow-500">
+                                            <i className="fa-regular fa-pen-to-square"></i>
+                                        </a>
+                                        <a onClick={() => remove(index)} className="text-red-600">
+                                            <i className="fa-solid fa-trash"></i>
+                                        </a>
                                     </div>
                                 </div>
-                                <small className='text-gray-500'>Created on : {task.created}</small>
-                                <p className='mt-4 text-blue-500'>{task.desc}</p>
-                                <div className='text-gray-500 text-end pt-4 px-2'>
-                                    <small>{task.start} - {task.end}</small>
+                                <small className="text-gray-500">
+                                    Created on : {task.created}
+                                </small>
+                                <p className="mt-4 text-blue-500">{task.description}</p>
+                                <div className="text-gray-500 text-end pt-4 px-2">
+                                    <small>
+                                        {convertTo12HourFormat(task.start)} - {convertTo12HourFormat(task.end)}
+                                    </small>
                                 </div>
-                            </div >
-                        )
+                            </div>
+                        );
                     })
-                }
+                )}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Task
-
+export default Task;
