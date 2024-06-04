@@ -15,7 +15,7 @@ const Task = () => {
                 toggleActions: "play none none none",
             },
             opacity: 0,
-            y: "150px",
+            y: "100px",
             duration: 1,
             ease: "Power2.inOut",
         });
@@ -28,7 +28,7 @@ const Task = () => {
                 toggleActions: "play none none none",
             },
             opacity: 0,
-            y: "150px",
+            y: "100px",
             duration: 1,
             ease: "Power2.inOut",
         });
