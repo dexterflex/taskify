@@ -8,28 +8,34 @@ const Task = () => {
     gsap.registerPlugin(ScrollTrigger);
     // animation
     useGSAP(() => {
-        gsap.from(".from-left", {
+        gsap.from(".task-from-left", {
             scrollTrigger: {
-                trigger: ".from-left",
+                trigger: ".task-from-left",
                 start: "top 100%",
                 toggleActions: "play none none none ",
             },
             opacity: 0,
-            y: "100px",
-            duration: 1,
+            x: "-100%",
+            y: '50px',
+            scale: 0,
+            delay: .3,
+            duration: 1.5,
             ease: "Power2.inOut",
         });
     });
     useGSAP(() => {
-        gsap.from(".from-right", {
+        gsap.from(".task-from-right", {
             scrollTrigger: {
-                trigger: ".from-right",
+                trigger: ".task-from-right",
                 start: "top 100%",
                 toggleActions: "play none none none",
             },
             opacity: 0,
-            y: "100px",
-            duration: 1,
+            x: "100%",
+            y: '50px',
+            scale: 0,
+            delay: .3,
+            duration: 1.5,
             ease: "Power2.inOut",
         });
     });
@@ -122,9 +128,9 @@ const Task = () => {
     }
 
     return (
-        <div className=" bg-white md:p-14 px-5 py-9 flex flex-col md:flex-row gap-11 ">
+        <div className=" bg-white md:p-14 px-5 py-9 flex flex-col md:flex-row gap-11 " id="todo">
             {/* form  */}
-            <div className="from-left  p-5 h-96 rounded md:w-1/2  shadow-2xl shadow-black">
+            <div className="task-from-left  p-5 h-96 rounded md:w-1/2  shadow-2xl shadow-black">
                 <form onSubmit={handleSubmit}>
                     <h2 className="mb-8 text-3xl">{currentTask.index === "" ? "Add Task" : "Update Task"}</h2>
                     <input
@@ -150,7 +156,7 @@ const Task = () => {
                             name="start"
                             value={currentTask.start}
                             onChange={handleChange}
-                            className="bg-slate-400 py-1 px-4 rounded"
+                            className="bg-slate-400 py-1 px-4 rounded text-white"
                             required
                         />
                         <input
@@ -158,7 +164,7 @@ const Task = () => {
                             name="end"
                             value={currentTask.end}
                             onChange={handleChange}
-                            className="bg-slate-400 py-1 px-4 rounded"
+                            className="bg-slate-400 py-1 px-4 rounded text-white"
                             required
                         />
                     </div>
@@ -180,7 +186,7 @@ const Task = () => {
             </div>
 
             {/* all allTasks  */}
-            <div className="from-right md:w-1/2 shadow-2xl bg-slate-800 shadow-black p-5 rounded flex flex-col gap-5 h-96 overflow-scroll ">
+            <div className="task-from-right md:w-1/2 shadow-2xl bg-slate-800 shadow-black p-5 rounded flex flex-col gap-5 h-96 overflow-scroll ">
                 {allTasks.length == 0 ? (
                     <div className="bg-slate-200 rounded p-3  shadow-inner shadow-black">
                         You are free of Tasks.

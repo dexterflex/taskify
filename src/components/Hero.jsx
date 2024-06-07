@@ -13,9 +13,9 @@ const Hero = () => {
     // Create Ref element.
     const el = useRef(null);
     useGSAP(() => {
-        gsap.from(".zoom-out", {
+        gsap.from(".hero-from-left", {
             scrollTrigger: {
-                trigger: ".zoom-out",
+                trigger: ".hero-from-left",
                 start: "center 100%",
                 toggleActions: "play none none none",
             },
@@ -28,26 +28,26 @@ const Hero = () => {
     });
 
     useGSAP(() => {
-        gsap.from(".zoom-in", {
+        gsap.from(".hero-from-right", {
             scrollTrigger: {
-                trigger: ".zoom-in",
+                trigger: ".hero-from-right",
                 start: "100px 100%",
                 end: 'center top',
                 toggleActions: "play none none none",
             },
             x: '100%',
             opacity: 0,
-            delay: .1,
             duration: 1.5,
             ease: "power2.inOut",
         });
     });
 
     return (
-        <div className="md:p-14 px-5 py-9 bg-gray-800">
-            <div className="zoom-out text-white flex flex-col-reverse md:flex-row items-center justify-center py-24">
+        <div className="md:p-14 px-5 py-9 bg-white" id="hero">
+            {/* hero-section first portion  */}
+            <div className="hero-from-left text-white flex flex-col-reverse md:flex-row items-center justify-center py-24">
                 <div className="w-full md:w-1/2 text-left md:pr-10 ">
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4">
+                    <h1 className="text-4xl md:text-5xl font-bold mb-4 text-black">
                         <img src={hello} alt="not found" className="mb-4 w-14"></img>
                         <ReactTyped
                             strings={[
@@ -60,7 +60,7 @@ const Hero = () => {
                             backSpeed={50}
                         />
                     </h1>
-                    <p className="text-xl md:text-2xl mb-8">
+                    <p className="text-xl md:text-2xl mb-8 text-black">
                         Your Ultimate Task Management Solution
                     </p>
 
@@ -81,33 +81,33 @@ const Hero = () => {
                     <img
                         src={heroImageSecondary}
                         alt="not found"
-                        className="w-full h-auto rounded shadow-2xl shadow-white"
+                        className="w-full h-auto rounded shadow-2xl shadow-black"
                     />
                 </div>
             </div>
-
-            <div className="zoom-in text-white flex flex-col md:flex-row  items-center justify-center py-24">
-                <div className="w-full md:w-1/2 mb-6 md:mb-0">
+            {/* hero section second portion  */}
+            <div className="hero-from-right text-white flex flex-col md:flex-row  items-center justify-center py-24 pb-0">
+                <div className="w-full md:w-1/2 mb-6">
                     <img
                         src={heroImage}
                         alt="not found"
-                        className="image w-full h-auto rounded shadow-2xl shadow-white"
+                        className="image w-full h-auto rounded shadow-2xl shadow-black"
                     />
                 </div>
                 <div className="w-full md:w-1/2 text-left md:pl-10">
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4">
+                    <h1 className="text-4xl md:text-5xl font-bold mb-8 text-black ">
                         <span className="text-amber-800 mr-3">
                             <i className="fa-regular fa-rectangle-list "></i>
                         </span>
                         Benefits of Using Todos{" "}
                     </h1>
-                    <p className="text-lg mb-8 text-gray-500">
-                        Organization: Todos help in organizing tasks and activities
+                    <p className="text-lg mb-4 text-gray-500">
+                        <strong>Organization:</strong> Todos help in organizing tasks and activities
                         systematically. By listing tasks, you ensure that nothing is
                         forgotten.
                     </p>
-                    <p className="text-lg mb-8 text-gray-500">
-                        Prioritization: By arranging tasks based on their importance and
+                    <p className="text-lg mb-4 text-gray-500">
+                        <strong>Prioritization:</strong> By arranging tasks based on their importance and
                         urgency, you can focus on what needs immediate attention.
                     </p>
                 </div>
