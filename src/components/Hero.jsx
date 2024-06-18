@@ -71,7 +71,7 @@ const Hero = () => {
                         covered.
                     </p>
                     <a
-                        href="/signup"
+                        href="#"
                         className="px-4 py-2 mb-4 bg-black text-white inline-block animate-bounce"
                     >
                         <button>Get Started</button>

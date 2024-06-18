@@ -20,7 +20,7 @@ const Review = () => {
 
     function Card({ username, comment, date, rating }) {
         return (
-            <div className="w-60 text-center shadow-[0px_0px_25px_theme('colors.gray.500')]  rounded-md transition-all duration-300 ease-in-out hover:scale-110 flex flex-col  overflow-hidden select" id="review">
+            <div className="w-60 text-center shadow-[0px_0px_25px_theme('colors.gray.500')]  rounded-md transition-all duration-300 ease-in-out hover:scale-110 flex flex-col  overflow-hidden select">
                 {/* iamge section of review card  */}
                 <div className="h-24 py-5 bg-gray-800 relative">
                     <div className="rounded-full w-24 h-24 bg-white mx-auto overflow-hidden absolute left-1/2 top-1/2 -translate-x-1/2 ">
@@ -34,15 +34,15 @@ const Review = () => {
                     <small className="text-slate-400">{date}</small>
                     <div className="text-amber-300 mt-2">
                         {Array.from({ length: rating }, (_, index) => (
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                         ))}
                     </div>
                 </div>
-            </div>
+            </div >
         );
     }
     return (
-        <div className="bg-white md:p-14 px-5 py-9">
+        <div className="bg-white md:p-14 px-5 py-9" id="review">
             <div className="mb-28 flex justify-center">
                 <h2 className="text-3xl text-slate-80 border-b-2 px-4 py-2 border-rose-500"><i class="fa-solid fa-heart fa-bounce mx-2 text-red-600"></i> from Our Users</h2>
             </div>
